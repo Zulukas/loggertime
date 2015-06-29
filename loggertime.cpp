@@ -14,9 +14,12 @@ int main() {
 */
 
 #include "loggertime.h"
-#include "stringfunctions.cpp"
+#include "stringfunctions.h"
 
 bool LoggerTime :: military = false;
+bool LoggerTime :: UTC = false;
+bool LoggerTime :: shortDate = false;
+std::string LoggerTime :: format = mm/dd/yyyy;
 
 LoggerTime :: LoggerTime() {
 	t = time(0);
@@ -48,15 +51,24 @@ int LoggerTime :: getSecond() {
 
 std::ostream & operator << (std::ostream & out, const LoggerTime &time) {
 	struct tm *now = localtime(&time.t);
+
+	if (time.UTC) {
+		now = gmtime(&time.t);
+	}
+
 	out << now->tm_mon + 1 << "/" << now->tm_mday << "/" << now->tm_year + 1900 << ": ";
 
 	if (time.military)
-		out << now->tm_hour << ":" << now->tm_min << ":" << now->tm_sec;
+		out << now->tm_hour << ":" << std::setfill('0') << std::setw(2) 
+			<< now->tm_min << ":" << std::setfill('0') << std::setw(2) 
+			<< now->tm_sec;
 	else {
 		int hour = now->tm_hour;
 
 		if (hour >= 12)
-			out << hour - 12 << ":" << now->tm_min << ":" << now->tm_sec << "pm";
+			out << hour - 12 << ":" << std::setfill('0') << std::setw(2) 
+				<< now->tm_min << ":" << std::setfill('0') << std::setw(2) 
+				<< now->tm_sec << "pm";
 		else
 			out << hour << ":" << now->tm_min << ":" << now->tm_sec << "am";
 	}
@@ -64,3 +76,4 @@ std::ostream & operator << (std::ostream & out, const LoggerTime &time) {
 	return out;
 }
 
+void setDateFormat

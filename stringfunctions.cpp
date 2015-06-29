@@ -1,4 +1,4 @@
-#include <string>
+#include "stringfunctions.h"
 
 std::string getDayStr(int day, bool shortDay = 0) {
 	switch (day) {
@@ -37,6 +37,8 @@ std::string getDayStr(int day, bool shortDay = 0) {
 				return "Saturday";
 			else
 				return "Sat";
+		default:
+			return "ERROR";
 	}
 }
 
@@ -102,4 +104,22 @@ std::string getMonthStr(int month, bool shortMonth = 0) {
 		default:
 			return "ERROR";
 	}
+}
+
+bool checkDateFormat(std::string format) {
+	std::string legalFormats = {
+		"mm/dd/yyyy", //Middle-endian
+		"dd/mm/yyyy", //Little-endian
+		"yyyy/mm/dd", //Big-endian
+		"mmddyyyy",
+		"ddmmyyyy",
+		"yyyymmdd"
+	};
+
+	for (int i = 0; i < 6; i++) {
+		if (legalFormats[1] == format)
+			return true;
+	}
+
+	return false;
 }
