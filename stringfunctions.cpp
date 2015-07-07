@@ -1,6 +1,25 @@
 #include "stringfunctions.h"
+#include <string>
 
-std::string getDayStr(int day, bool shortDay = 0) {
+/* String Function Global Constants */
+
+const int numStringFormats = 6;
+const std::string legalFormats[numStringFormats] = {
+	"mm/dd/yyyy", //Middle-endian
+	"dd/mm/yyyy", //Little-endian
+	"yyyy/mm/dd", //Big-endian
+	"mmddyyyy",
+	"ddmmyyyy",
+	"yyyymmdd"
+};
+
+/* End String Function Global Constants */
+///////////////////////////////////////////////////////////////////////////////
+/* Start string-returning functions */
+
+std::string getDayName(int day, bool shortDay) {
+	shortDay = !shortDay; //too lazy to correct the entire switch statement :)
+
 	switch (day) {
 		case 0:
 			if (shortDay)
@@ -42,7 +61,7 @@ std::string getDayStr(int day, bool shortDay = 0) {
 	}
 }
 
-std::string getMonthStr(int month, bool shortMonth = 0) {
+std::string getMonthName(int month, bool shortMonth) {
 	switch (month) {
 		case 1:
 			if (shortMonth)
@@ -106,20 +125,147 @@ std::string getMonthStr(int month, bool shortMonth = 0) {
 	}
 }
 
-bool checkDateFormat(std::string format) {
-	std::string legalFormats = {
-		"mm/dd/yyyy", //Middle-endian
-		"dd/mm/yyyy", //Little-endian
-		"yyyy/mm/dd", //Big-endian
-		"mmddyyyy",
-		"ddmmyyyy",
-		"yyyymmdd"
-	};
+/*std::string getDateString(TimeData &td) {
+	std::string out;
 
-	for (int i = 0; i < 6; i++) {
-		if (legalFormats[1] == format)
+	return out;
+}
+
+std::string getTimeString(TimeData &td) {
+	std::string out = "";
+
+	std::string DAY = std::to_string(td.DAY);
+
+	if (td.lt.getShowDayString()) {
+
+
+		out += getDayStr(td.DAY) + " ";
+
+		if (td.lt.getShowDayNumber()) {
+			out += DAY + " ";
+		}
+	}
+
+	return out;
+}
+
+/*std::string getDayString(TimeData &td) {
+	std::string out;
+
+	if (td.lt.getShowDayString() && !td.lt.getShortDate()) { //Day String
+		out += getDayStr(td.DAY, td.lt.getShortDayString()) + " ";
+	}
+	
+	out += td.DAY;
+
+	return out;
+}
+
+*/
+std::string getMonthString(TimeData &td) {
+	std::string out;
+
+	LoggerTime temp = td.lt;
+
+	/*if (td.lt.getShowMonthString() && !td.lt.getShortDate()) { //Month String
+		out += getMonthStr(td.MONTH, td.lt.getShortMonthString());
+	}
+	else { 
+		out += std::to_string(td.MONTH);
+	}*/
+
+	if (temp.getShowMonthString() && !td.lt.getShortDate()) {
+
+	}
+
+	return out;
+}
+
+std::string getYearString(TimeData &td) {
+	return std::to_string(td.YEAR);
+}
+
+/* DD MM YYYY */
+std::string getLittleEndianString(TimeData &td) {
+	std::string DAY = getDayString(td);
+	std::string MONTH = getMonthString(td);
+	std::string YEAR = getYearString(td);
+
+	if (td.lt.getShortDate()) {
+		return (DAY + "/" + MONTH + "/" + YEAR);
+	}
+	else {
+		return (DAY + " of ");
+	}
+}
+
+/* MM DD YYYY*/
+std::string getMiddleEndianString(TimeData &td) {
+	std::string out;
+
+	return out;
+}
+ 
+/* YYYY DD MM */
+std::string getBigEndianString(TimeData &td) {
+	std::string out;
+
+	return out;
+}
+
+/* End string-returning functions */
+///////////////////////////////////////////////////////////////////////////////
+/* Start bool-returning functions */
+
+bool checkDateFormat(std::string format) {
+	for (int i = 0; i < numStringFormats; i++) {
+		if (legalFormats[i] == format)
 			return true;
 	}
 
 	return false;
 }
+
+/*
+* YYYYMMDD - Saudi Arabia and a few other countries
+*/
+bool checkBigEndianFormat(std::string format) {
+	return ((legalFormats[2]) == format || (legalFormats[5]) == format);
+}
+
+/*
+* DDMMYYYY - Most of the world
+*/
+bool checkLittleEndianFormat(std::string format) {
+	return ((legalFormats[1]) == format || (legalFormats[4]) == format);
+}
+
+/*
+* MMDDYYYY - Most of North America
+*/
+bool checkMiddleEndianFormat(std::string format) {
+	return ((legalFormats[0]) == format || (legalFormats[3]) == format);
+}
+
+
+
+
+
+//TEST FUNCTIONS
+
+//std::string getDayStr(int day, bool shortDay) { return ""; }
+//std::string getMonthStr(int month, bool shortMonth) { return ""; }
+std::string getDateString(TimeData &td) { return ""; }
+std::string getTimeString(TimeData &td) { return ""; }
+std::string getDayString(TimeData &td) { return ""; }
+//std::string getMonthString(TimeData &td) { return ""; }
+//std::string getYearString(TimeData &td) { return ""; }
+/*std::string getLittleEndianString(TimeData &td) { return ""; }
+std::string getMiddleEndianString(TimeData &td) { return ""; }
+std::string getBigEndianString(TimeData td) { return ""; }
+
+bool checkDateFormat(std::string format) { return false; }
+bool checkBigEndianFormat(std::string format) { return false; }		//YYYY MM DD
+bool checkLittleEndianFormat(std::string format) { return false; }	//DD MM YYYY
+bool checkMiddleEndianFormat(std::string format) { return false; }	//MM DD YYYY
+*/

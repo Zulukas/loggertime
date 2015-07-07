@@ -1,17 +1,20 @@
-RM = rm -rf
+RM=rm -rf
 
-a.out: driver.o loggertime.o stringfunctions.h
-	g++ -o a.out driver.o loggertime.o stringfunctions.h
+PROG_NAME = a.out
 
-driver.o: driver.cpp loggertime.h
+a.out: stringfunctions.o loggertime.o driver.o
+	g++ -std=c++11 stringfunctions.o loggertime.o driver.o
+
+driver.o: driver.cpp loggertime.h stringfunctions.h
 	g++ -c driver.cpp
 
-stringfunctions.o: stringfunctions.h stringfunctions.cpp
-	g++ -c stringfunctions.cpp
-
-loggertime.o: loggertime.h loggertime.cpp
+loggertime.o: loggertime.h loggertime.cpp stringfunctions.h
 	g++ -c loggertime.cpp
 
+stringfunctions.o: stringfunctions.h stringfunctions.cpp loggertime.h
+	g++ -c -std=c++11 stringfunctions.cpp
+
 clean: 
-	$(RM) *.o *~ a.out
+	@echo --Rebuild completely from source--
+	$(RM) *.o *~ $(PROG_NAME)
 	make a.out
