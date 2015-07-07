@@ -62,15 +62,21 @@ public:
 
 	//Short day string format (Mon instead of Monday)
 	inline bool getShortDayString() { return shortDayString; }
-	inline bool setShortDayString(bool shortDayString) { this->shortDayString = shortDayString; }
+	inline bool setShortDayString(bool shortDayString) { 
+		this->shortDayString = shortDayString; 
+	}
 
 	//Show the number of the day iff the name of the day is shown
 	inline bool getShowDayNumber() { return showDayNumber; }
-	inline void setShowDayNumber(bool showDayNumber) { this->showDayNumber = showDayNumber; }
+	inline void setShowDayNumber(bool showDayNumber) { 
+		this->showDayNumber = showDayNumber; 
+	}
 
 	//Show the name of the month
 	inline bool getShowMonthString() { return showMonthString; }
-	inline void setShowMonthString(bool showMonthString) { this->showMonthString = showMonthString; }
+	inline void setShowMonthString(bool showMonthString) { 
+		this->showMonthString = showMonthString; 
+	}
 
 	//Short month string format (Jan instead of January)
 	inline bool getShortMonthString() { return shortMonthString; }

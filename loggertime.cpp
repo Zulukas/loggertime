@@ -11,6 +11,9 @@ bool LoggerTime :: useDots = false;
 bool LoggerTime :: showDayString = false;
 bool LoggerTime :: shortDayString = false;
 bool LoggerTime :: showDayNumber = false;
+bool LoggerTime :: showMonthString = false;
+bool LoggerTime :: shortMonthString = false;
+bool LoggerTime :: showMonthNumber = false;
 std::string LoggerTime :: format = "mm/dd/yyyy";
 
 /* End Statics */
@@ -60,14 +63,14 @@ void LoggerTime :: setDateFormat(std::string format) {
 /* Overloaded Operators */
 
 std::ostream & operator << (std::ostream & out, const LoggerTime &time) {
-	/*struct tm *now = localtime(&time.t);
+	struct tm *now = localtime(&time.t);
 
 	if (time.UTC) {
 		now = gmtime(&time.t);
 	}
 
-	std::string DAY = getDayStr(now->tm_mday, time.shortDate);
-	std::string MONTH = getMonthStr(now->tm_mon + 1, time.shortDate);
+	std::string DAY = getDayName(now->tm_mday, time.shortDate);
+	std::string MONTH = getMonthName(now->tm_mon + 1, time.shortDate);
 	int YEAR = now->tm_year + 1900;
 	int HOUR = now->tm_hour;
 	int MIN = now->tm_min;
@@ -92,7 +95,7 @@ std::ostream & operator << (std::ostream & out, const LoggerTime &time) {
 		else
 			out << HOUR << ":" << MIN << ":" << SEC << "am";
 	}
-	*/
+	
 	return out;
 }
 

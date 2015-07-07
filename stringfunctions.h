@@ -50,8 +50,8 @@ struct TimeData {
 extern const int numStringFormats;
 extern const std::string legalFormats[];
 
-std::string getDayStr(int day, bool shortDay = 0);
-std::string getMonthStr(int month, bool shortMonth = 0);
+std::string getDayName(int day, bool shortDay = 0);
+std::string getMonthName(int month, bool shortMonth = 0);
 std::string getDateString(TimeData &td);
 std::string getTimeString(TimeData &td);
 std::string getDayString(TimeData &td);

@@ -125,7 +125,7 @@ std::string getMonthName(int month, bool shortMonth) {
 	}
 }
 
-/*std::string getDateString(TimeData &td) {
+std::string getDateString(TimeData &td) {
 	std::string out;
 
 	return out;
@@ -139,7 +139,7 @@ std::string getTimeString(TimeData &td) {
 	if (td.lt.getShowDayString()) {
 
 
-		out += getDayStr(td.DAY) + " ";
+		out += getDayName(td.DAY) + " ";
 
 		if (td.lt.getShowDayNumber()) {
 			out += DAY + " ";
@@ -149,11 +149,11 @@ std::string getTimeString(TimeData &td) {
 	return out;
 }
 
-/*std::string getDayString(TimeData &td) {
+std::string getDayString(TimeData &td) {
 	std::string out;
 
 	if (td.lt.getShowDayString() && !td.lt.getShortDate()) { //Day String
-		out += getDayStr(td.DAY, td.lt.getShortDayString()) + " ";
+		out += getDayName(td.DAY, td.lt.getShortDayString()) + " ";
 	}
 	
 	out += td.DAY;
@@ -161,21 +161,17 @@ std::string getTimeString(TimeData &td) {
 	return out;
 }
 
-*/
+
 std::string getMonthString(TimeData &td) {
 	std::string out;
 
 	LoggerTime temp = td.lt;
 
-	/*if (td.lt.getShowMonthString() && !td.lt.getShortDate()) { //Month String
-		out += getMonthStr(td.MONTH, td.lt.getShortMonthString());
+	if (td.lt.getShowMonthString() && !td.lt.getShortDate()) { //Month String
+		out += getMonthName(td.MONTH, td.lt.getShortMonthString());
 	}
 	else { 
 		out += std::to_string(td.MONTH);
-	}*/
-
-	if (temp.getShowMonthString() && !td.lt.getShortDate()) {
-
 	}
 
 	return out;
@@ -255,9 +251,9 @@ bool checkMiddleEndianFormat(std::string format) {
 
 //std::string getDayStr(int day, bool shortDay) { return ""; }
 //std::string getMonthStr(int month, bool shortMonth) { return ""; }
-std::string getDateString(TimeData &td) { return ""; }
-std::string getTimeString(TimeData &td) { return ""; }
-std::string getDayString(TimeData &td) { return ""; }
+//std::string getDateString(TimeData &td) { return ""; }
+//std::string getTimeString(TimeData &td) { return ""; }
+//std::string getDayString(TimeData &td) { return ""; }
 //std::string getMonthString(TimeData &td) { return ""; }
 //std::string getYearString(TimeData &td) { return ""; }
 /*std::string getLittleEndianString(TimeData &td) { return ""; }

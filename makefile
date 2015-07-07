@@ -11,7 +11,7 @@ driver.o: driver.cpp loggertime.h stringfunctions.h
 loggertime.o: loggertime.h loggertime.cpp stringfunctions.h
 	g++ -c loggertime.cpp
 
-stringfunctions.o: stringfunctions.h stringfunctions.cpp loggertime.h
+stringfunctions.o: stringfunctions.h loggertime.h stringfunctions.cpp
 	g++ -c -std=c++11 stringfunctions.cpp
 
 clean: 
