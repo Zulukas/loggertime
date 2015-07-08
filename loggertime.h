@@ -7,6 +7,8 @@
 
 #include "stringfunctions.h"
 
+struct TimeData;
+
 class LoggerTime {
 private: 
 	time_t t;
@@ -26,26 +28,26 @@ public:
 	LoggerTime();
 	
 	//Military Time
-	inline bool getMilitary() { return military; }
+	inline bool getMilitary() const { return military; }
 	inline void setMilitary(bool input) { this->military = input; }
 
 	//UTC time
-	inline bool getUTC() { return UTC; }
+	inline bool getUTC() const { return UTC; }
 	inline void setUTC(bool input) { this->UTC = input; }
 
-	inline bool getLittleEndian() { return littleEndian; }
+	inline bool getLittleEndian() const { return littleEndian; }
 	inline void setLittleEndian(bool input) { this->littleEndian = input; }
 
-	inline bool getUseMonthName() { return useMonthName; }
+	inline bool getUseMonthName() const { return useMonthName; }
 	inline void setUseMonthName(bool input) { this->useMonthName = input; }
 
-	inline bool getShortMonthName() { return shortMonthName; }
+	inline bool getShortMonthName() const { return shortMonthName; }
 	inline void setShortMonthName(bool input) { this->shortMonthName = input; }
 
-	inline bool getDisplayDayName() { return displayDayName; }
+	inline bool getDisplayDayName() const { return displayDayName; }
 	inline void setDisplayDayName(bool input) { this->displayDayName = input; }
 
-	inline bool getShortDayName() { return shortDayName; }
+	inline bool getShortDayName() const { return shortDayName; }
 	inline void setShortDayName(bool input) { this->shortDayName = input; }
 
 	inline time_t * getTime() { return &t; }

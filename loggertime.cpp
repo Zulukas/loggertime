@@ -52,10 +52,21 @@ int LoggerTime :: getSecond() {
 /* Overloaded Operators */
 
 std::ostream & operator << (std::ostream & out, const LoggerTime &time) {
-	struct tm *now = localtime(&time.t);
+	struct tm *t;
+	if (time.getUTC()) {
+		t = gmtime(&time.t);
+	}
+	else {
+		t = localtime(&time.t);
+	}
 
-	
-	
+	std::string TIME = getTimeString(t->tm_hour, t->tm_min, t->tm_sec, time.military);
+	std::string DATE = getDateString(t->tm_year + 1900, t->tm_mon + 1, t->tm_mday, t->tm_wday, 
+									 time.displayDayName, time.shortDayName, 
+									 time.useMonthName, time.shortMonthName, 
+									 time.littleEndian);
+
+	out << DATE + " " + TIME;
 	return out;
 }
 

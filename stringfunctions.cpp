@@ -113,58 +113,51 @@ std::string getMonthName(int month, bool shortMonth) {
 	}
 }
 
-std::string getDateString(TimeData &td) {
+std::string getDateString(int year, int month, int day, int wday,
+						  bool showDay, bool shortDay, bool showMonth, bool shortMonth,
+						  bool littleEndian) {
 	std::string out;
-	std::string DAY = std::to_string(td.DAY);
+	std::string DAY = std::to_string(day);
 	std::string MONTH;
-	std::string YEAR = std::to_string(td.YEAR);
+	std::string YEAR = std::to_string(year);
 
-	if (td.lt.getDisplayDayName()) {
-		out += getDayName(td.t->tm_wday, td.lt.getShortDayName()) + " ";
+	if (showDay && wday >= 0 && wday < 7) {
+		out += getDayName(wday, shortDay) + " ";
 	}
 
-	if (td.lt.getUseMonthName()) {
-		MONTH = getMonthName(td.MONTH, td.lt.getShortMonthName());
+	if (showMonth) {
+		MONTH = getMonthName(month, shortMonth);
 	}
 	else {
-		MONTH = std::to_string(td.MONTH);
+		MONTH = std::to_string(month);
 	}
 
-	if (td.lt.getLittleEndian()) {
-		out = DAY + "-" + MONTH + "-" + YEAR;
+	if (littleEndian) {
+		out += DAY + "-" + MONTH + "-" + YEAR;
 	}
 	else {
-		out = MONTH + "-" + DAY + "-" + YEAR;
+		out += MONTH + "-" + DAY + "-" + YEAR;
 	}
 
 	return out;
 }
 
-std::string getTimeString(TimeData &td) {
+std::string getTimeString(int hour, int minute, int second, bool military) {
 	std::string out = "";
 
 	std::string HOUR;
-	std::string MINUTE = std::to_string(td.MIN);
-	std::string SECONDS = std::to_string(td.SEC);
+	std::string MINUTE = std::to_string(minute);
+	std::string SECONDS = (second < 10) ? 
+						  ("0" + std::to_string(second)) : (std::to_string(second));
 
-	int iHour;
-
-	if (td.lt.getUTC()) { 
-		struct tm *t = td.lt.getGMTime(td.lt.getTime());
-		iHour = (t->tm_hour);
-	}
-	else {
-		iHour = (td.HOUR);
-	}
-
-	if (td.lt.getMilitary()) {
-		HOUR = std::to_string(iHour);
+	if (military) {
+		HOUR = std::to_string(hour);
 
 		return HOUR + ":" + MINUTE + ":" + SECONDS;
 	}
 
-	bool PM = (iHour >= 12);
-	HOUR = std::to_string((PM) ? (iHour - 12) : (iHour));
+	bool PM = (hour >= 12);
+	HOUR = std::to_string((PM) ? (hour - 12) : (hour));
 
 	return HOUR + ":" + MINUTE + ":" + SECONDS + (PM ? " pm" : " am");
 }

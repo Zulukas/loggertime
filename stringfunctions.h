@@ -10,17 +10,6 @@
 /* Forward Declarations */
 class LoggerTime;
 
-struct TimeData {
-	LoggerTime &lt;
-	struct tm *t;
-	int YEAR;
-	int MONTH;
-	int DAY;
-	int HOUR;
-	int MIN;
-	int SEC;
-};
-
 /*
 * Notes:
 *
@@ -50,8 +39,10 @@ struct TimeData {
 
 std::string getDayName(int day, bool shortDay = 0);
 std::string getMonthName(int month, bool shortMonth = 0);
-std::string getDateString(TimeData &td);
-std::string getTimeString(TimeData &td);
+std::string getDateString(int year, int month, int day, int wday = 7, bool showDay = 0, 
+						  bool shortDay = 1, bool showMonth = 0, bool shortMonth = 1, 
+						  bool littleEndian = 1);
+std::string getTimeString(int hour, int minute, int second, bool military = 1);
 
 bool checkDateFormat(std::string format);
 

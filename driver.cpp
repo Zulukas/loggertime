@@ -8,8 +8,9 @@ using namespace std;
 int main() {
 	LoggerTime lt2;
 
-	lt2.setMilitary(false);
+	lt2.setMilitary(true);
 	lt2.setUTC(false);
+	lt2.setDisplayDayName(true);
 
 	cout << lt2 << endl;
 }
