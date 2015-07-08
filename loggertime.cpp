@@ -2,19 +2,14 @@
 
 /* Set the Statics */
 
-bool LoggerTime :: military = false;
-bool LoggerTime :: UTC = false;
-bool LoggerTime :: shortDate = true;
-bool LoggerTime :: useSlashes = true;
-bool LoggerTime :: useDashes = false;
-bool LoggerTime :: useDots = false;
-bool LoggerTime :: showDayString = false;
-bool LoggerTime :: shortDayString = false;
-bool LoggerTime :: showDayNumber = false;
-bool LoggerTime :: showMonthString = false;
-bool LoggerTime :: shortMonthString = false;
-bool LoggerTime :: showMonthNumber = false;
-std::string LoggerTime :: format = "mm/dd/yyyy";
+bool LoggerTime :: military = 		  	false;
+bool LoggerTime :: UTC = 			  	false;
+
+bool LoggerTime :: littleEndian = 		false;
+bool LoggerTime :: useMonthName = 		false;
+bool LoggerTime :: shortMonthName = 	false;
+bool LoggerTime :: displayDayName = 	false;
+bool LoggerTime :: shortDayName = 		false;
 
 /* End Statics */
 ///////////////////////////////////////////////////////////////////////////////
@@ -52,12 +47,6 @@ int LoggerTime :: getSecond() {
 	return getLocalTime(&t)->tm_sec;
 }
 
-void LoggerTime :: setDateFormat(std::string format) {
-	if (checkDateFormat(format)) {
-		this->format = format;
-	}
-}
-
 /* End Setters & Getters */
 ///////////////////////////////////////////////////////////////////////////////
 /* Overloaded Operators */
@@ -65,36 +54,7 @@ void LoggerTime :: setDateFormat(std::string format) {
 std::ostream & operator << (std::ostream & out, const LoggerTime &time) {
 	struct tm *now = localtime(&time.t);
 
-	if (time.UTC) {
-		now = gmtime(&time.t);
-	}
-
-	std::string DAY = getDayName(now->tm_mday, time.shortDate);
-	std::string MONTH = getMonthName(now->tm_mon + 1, time.shortDate);
-	int YEAR = now->tm_year + 1900;
-	int HOUR = now->tm_hour;
-	int MIN = now->tm_min;
-	int SEC = now->tm_sec;
-
-	if (checkMiddleEndianFormat(time.format)) //MMDDYYYY
-		out << MONTH << "/" << DAY << "/" << YEAR << ": ";
-	else if (checkLittleEndianFormat(time.format)) //DDMMYYYY
-		out << DAY << "/" << MONTH << "/" << YEAR << ": ";
-	else if (checkBigEndianFormat(time.format)) //YYYYMMDD
-		out << YEAR << "/" << MONTH << "/" << DAY << ": ";
-
-	if (time.military)
-		out << HOUR << ":" << std::setfill('0') << std::setw(2) 
-			<< MIN << ":" << std::setfill('0') << std::setw(2) 
-			<< SEC;
-	else {
-		if (HOUR >= 12)
-			out << HOUR - 12 << ":" << std::setfill('0') << std::setw(2) 
-				<< MIN << ":" << std::setfill('0') << std::setw(2) 
-				<< SEC << "pm";
-		else
-			out << HOUR << ":" << MIN << ":" << SEC << "am";
-	}
+	
 	
 	return out;
 }

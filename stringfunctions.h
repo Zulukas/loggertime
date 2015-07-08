@@ -3,6 +3,7 @@
 
 #include <string>
 #include <ctime>
+#include <time.h>
 
 #include "loggertime.h"
 
@@ -11,7 +12,7 @@ class LoggerTime;
 
 struct TimeData {
 	LoggerTime &lt;
-	time_t *t;
+	struct tm *t;
 	int YEAR;
 	int MONTH;
 	int DAY;
@@ -47,23 +48,11 @@ struct TimeData {
 //		checkMiddleEndianFormat(string format) = Checks to see if the format string is middle endian notatiton
 //		checkBigEndianFormat(string format) = Checks to see if the format string is big endian notation
 
-extern const int numStringFormats;
-extern const std::string legalFormats[];
-
 std::string getDayName(int day, bool shortDay = 0);
 std::string getMonthName(int month, bool shortMonth = 0);
 std::string getDateString(TimeData &td);
 std::string getTimeString(TimeData &td);
-std::string getDayString(TimeData &td);
-std::string getMonthString(TimeData &td);
-std::string getYearString(TimeData &td);
-std::string getLittleEndianString(TimeData &td);
-std::string getMiddleEndianString(TimeData &td);
-std::string getBigEndianString(TimeData td);
 
 bool checkDateFormat(std::string format);
-bool checkBigEndianFormat(std::string format);		//YYYY MM DD
-bool checkLittleEndianFormat(std::string format);	//DD MM YYYY
-bool checkMiddleEndianFormat(std::string format);	//MM DD YYYY
 
 #endif
