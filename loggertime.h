@@ -4,6 +4,7 @@
 #include <ctime>
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 #include "stringfunctions.h"
 
@@ -27,6 +28,19 @@ private:
 public:
 	LoggerTime();
 	
+	inline void displayStatics() {
+		std::string result[2] = {"no\n", "yes\n"};
+
+		std::cout << "Statics Report:\n" 
+			 << "Military time: " << result[(this->military)]
+			 << "UTC time: " << result[(this->UTC)]
+			 << "Little Endian: " << result[(this->littleEndian)]
+			 << "Use Month Name: " << result[(this->useMonthName)]
+			 << "Short Month Name: " << result[(this->shortMonthName)]
+			 << "Display Day Name: " << result[(this->displayDayName)]
+			 << "Short Day Name: " << result[(this->shortDayName)];
+	}
+
 	//Military Time
 	inline bool getMilitary() const { return military; }
 	inline void setMilitary(bool input) { this->military = input; }

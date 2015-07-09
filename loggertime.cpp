@@ -53,6 +53,7 @@ int LoggerTime :: getSecond() {
 
 std::ostream & operator << (std::ostream & out, const LoggerTime &time) {
 	struct tm *t;
+
 	if (time.getUTC()) {
 		t = gmtime(&time.t);
 	}
